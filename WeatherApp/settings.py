@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
     'mighty-ocean-86692.herokuapp.com'
 ]
 
@@ -60,7 +62,9 @@ ROOT_URLCONF = 'WeatherApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'weather', 'templates', 'weather'),
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,15 +80,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'WeatherApp.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'd486b3slcrherl',
+    'HOST' : 'ec2-3-220-98-137.compute-1.amazonaws.com',
+    'PORT' : 5432,
+    'USER' : 'uwdeygrxidupge',
+    'PASSWORD' : '3da115419db0fb25bf21ab652df2bb71a5aab973402294bfc92d5b40b3d50fd7'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -120,8 +134,9 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
